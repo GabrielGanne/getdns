@@ -1,0 +1,21 @@
+From: Daniel Kahn Gillmor <dkg@fifthhorseman.net>
+Date: Thu, 1 Feb 2018 04:54:36 -0500
+Subject: avoid phoning home to creativecommons.org when reading docs
+
+---
+ spec/index.html | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/spec/index.html b/spec/index.html
+index 6888489..b1a48b4 100644
+--- a/spec/index.html
++++ b/spec/index.html
+@@ -2496,7 +2496,7 @@ deallocates them.</p>
+ <hr width=90%>
+ 
+ <p><a rel="license" href="https://creativecommons.org/licenses/by/3.0/deed.en_US"><img alt="Creative
+-Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/80x15.png"
++Commons License" style="border-width:0" <!-- src="https://i.creativecommons.org/l/by/3.0/80x15.png" -->
+ /></a><br />This work is licensed under a <a rel="license"
+ href="https://creativecommons.org/licenses/by/3.0/deed.en_US">Creative Commons Attribution 3.0
+ Unported License</a>.</p>

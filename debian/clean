@@ -1,0 +1,4 @@
+src/test/fails
+src/tools/stubby
+src/test/check_getdns*.failed
+src/stubby.1

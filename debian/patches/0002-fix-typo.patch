@@ -1,0 +1,21 @@
+From: Daniel Kahn Gillmor <dkg@fifthhorseman.net>
+Date: Thu, 1 Feb 2018 05:41:48 -0500
+Subject: fix typo
+
+---
+ doc/getdns_general.3.in | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/doc/getdns_general.3.in b/doc/getdns_general.3.in
+index 27b2557..be10956 100644
+--- a/doc/getdns_general.3.in
++++ b/doc/getdns_general.3.in
+@@ -76,7 +76,7 @@ getdns_dict **response)
+ The getdns_general(3) and getdns_general_sync functions provide public entry
+ points into the getdns API library to retrieve any valid responses to a query
+ from the DNS (note that other namespaces in the context are not used).   Most
+-typical use cases for applications are probably satisifed via calls to
++typical use cases for applications are probably satisfied via calls to
+ getdns_address(3) which would replace getaddrinfo(3).
+ 
+ .HP 3

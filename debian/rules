@@ -1,0 +1,31 @@
+#!/usr/bin/make -f
+
+include /usr/share/dpkg/pkg-info.mk
+
+CURRENT_DATE=$(shell date -u --rfc-3339=seconds --date "@$$SOURCE_DATE_EPOCH")
+
+export DPKG_GENSYMBOLS_CHECK_LEVEL=4
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+
+%:
+	dh $@
+
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		-DBUILD_LIBEVENT2=ON \
+		-DBUILD_LIBEV=ON \
+		-DBUILD_LIBUV=ON \
+		-DPATH_TRUST_ANCHOR_FILE=/usr/share/dns/root.key \
+		-DCURRENT_DATE="$(CURRENT_DATE)" \
+		-DBUILD_STUBBY=ON
+
+override_dh_install:
+	-rm -rf $(CURDIR)/debian/tmp/usr/share/doc
+	dh_install -X.la
+
+override_dh_missing:
+	dh_missing -X.la --fail-missing
+
+override_dh_auto_test:
+	# remote tests fail when there's no connectivity or the connectivity is restrained
+	-dh_auto_test

@@ -1,0 +1,3 @@
+Tests: stubby
+Depends: stubby, knot-dnsutils, procps
+Restrictions: allow-stderr, skippable

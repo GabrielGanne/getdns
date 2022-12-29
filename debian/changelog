@@ -1,0 +1,437 @@
+getdns (1.6.0-2) unstable; urgency=medium
+
+  * Team upload.
+  * debian/control:
+    - Mark libgetdns-dev as Multi-Arch: same
+
+ -- Roger Shimizu <rosh@debian.org>  Sun, 06 Dec 2020 03:01:19 +0900
+
+getdns (1.6.0-1) unstable; urgency=low
+
+  * Team upload.
+  * Upload to unstable.
+  * debian/watch:
+    - Better adapt various rc/beta/alpha version.
+
+ -- Roger Shimizu <rosh@debian.org>  Wed, 23 Sep 2020 00:29:54 +0900
+
+getdns (1.6.0-1~exp2) experimental; urgency=medium
+
+  * Team upload.
+  * debian/stubby.service:
+    - Revert previous revert, since CI shows it fails again.
+      Now we have to specify the config file path for stubby.
+
+ -- Roger Shimizu <rosh@debian.org>  Sun, 31 May 2020 20:33:47 +0900
+
+getdns (1.6.0-1~exp1) experimental; urgency=medium
+
+  * Team upload.
+  * New upstream release 1.6.0
+    - Migration of build system to cmake.
+    - New symbols with libnettle >= 3.4.
+    - answer_ipv4_address and answer_ipv6_address in reply and response
+      dicts.
+    - Record and guard UDP max payload size with servers.
+    - Run only offline-tests option with:
+      src/test/tpkg/run-offline-only.sh
+    - Include the packet the stub resolver sent to the upstream
+      the call_reporting dict.
+    - Build eventloop support libraries if event libraries are available.
+  * debian/control:
+    - B-D: Add cmake, the new build system.
+    - B-D: Remove doxygen, seems not used at all.
+  * debian/copyright:
+    - Remove makefile which is erased from upstream.
+  * debian/patches:
+    - Add 2 patches to make the cmake build works.
+  * debian/stubby.service:
+    - Update from upstream.
+    - Revert the default config file in service file.
+      Let's see the CI result.
+  * debian/libgetdns10.symbols:
+    - Update symbols file.
+  * debian/rules:
+    - Update to use cmake, and cmake options.
+
+ -- Roger Shimizu <rosh@debian.org>  Fri, 29 May 2020 19:00:18 +0900
+
+getdns (1.5.2-5) unstable; urgency=medium
+
+  * Team upload.
+  * d/t/control, d/t/stubby:
+    - [from ubuntu] Skip test if we don't have internet connection.
+
+ -- Roger Shimizu <rosh@debian.org>  Thu, 09 Jul 2020 23:53:35 +0900
+
+getdns (1.5.2-4) unstable; urgency=medium
+
+  * Team upload.
+  * debian/control:
+    - B-D: Remove doxygen, seems not used at all.
+  * debian/stubby.service:
+    - Update from upstream.
+  * debian/rules:
+    - Fix CURRENT_DATE setting.
+  * debian/tests:
+    - Add procps as tests dependency, since we use "ps" command.
+    - Add more comments in stubby test script.
+
+ -- Roger Shimizu <rosh@debian.org>  Sun, 31 May 2020 19:53:16 +0900
+
+getdns (1.5.2-3) unstable; urgency=medium
+
+  * Team upload.
+  * d/tests:
+    - Add a few 443 port DoT DNS upstream server.
+    - Use IPv4 localhost address to test.
+    - Test both systemd service port, and the server (port=5533) started
+      by ourselves.
+  * d/stubby.service: Add default configuration file path to start
+    the service (Closes: #961624).
+
+ -- Roger Shimizu <rosh@debian.org>  Fri, 29 May 2020 00:06:11 +0900
+
+getdns (1.5.2-2) unstable; urgency=medium
+
+  * Team upload.
+  * d/tests: Make stubby daemon listen on an unknown port and test
+    10 times.
+
+ -- Roger Shimizu <rosh@debian.org>  Wed, 27 May 2020 22:30:25 +0900
+
+getdns (1.5.2-1) unstable; urgency=medium
+
+  * Team upload.
+  * New upstream release 1.5.2
+    - Two small trust anchor fetcher fixes.
+    - Enable server side and update client side TCP Fast Open
+      implementation.
+    - Fix insecure delegation detection while scheduling.
+    - Escape backslashed when printing in JSON format.
+    - Use GnuTLS instead of OpenSSL for TLS with the --with-gnutls
+      option to configure.  libcrypto (from OpenSSL) still needed
+      for Zero configuration DNSSEC.
+    - DOA rr-type
+    - AMTRELAY rr-type
+  * d/control: Add Rules-Requires-Root: no
+  * d/libgetdns10.symbols: Add Build-Depends-Package field.
+  * Add debian/upstream/metadata
+
+ -- Roger Shimizu <rosh@debian.org>  Tue, 26 May 2020 21:37:21 +0900
+
+getdns (1.5.1-1) unstable; urgency=medium
+
+  * New upstream release
+  * Update symbols for new release
+  * Bump standards-version to 4.3.0 without further change
+
+ -- Scott Kitterman <scott@kitterman.com>  Thu, 24 Jan 2019 02:36:04 -0500
+
+getdns (1.4.2-1) unstable; urgency=medium
+
+  * new upstream bugfix release
+  * standards-version: bump to 4.1.4 (no changes needed)
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Mon, 18 Jun 2018 16:43:29 -0400
+
+getdns (1.4.1-1) unstable; urgency=medium
+
+  * new upstream release
+  * correct autopkgtest dependencies
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Fri, 16 Mar 2018 11:47:20 +0000
+
+getdns (1.4.0-1) unstable; urgency=medium
+
+  * new upstream release
+  * move to DEP-14 repository layout, update README.source
+  * install getdns_server_mon and manpage for stubby
+  * clean up src/stubby.1
+  * SONAME bump: libgetdns6 → libgetdns10
+  * added symbols for {set,get}_tls_curves_list
+  * move from libidn to libidn2
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Fri, 23 Feb 2018 12:22:22 -0800
+
+getdns (1.3.0-1) unstable; urgency=medium
+
+  * new upstream release
+  * update symbols
+  * clean up additional failure reports
+  * do not need lintian override for stubby initscript
+  * avoid privacy leak to creativecommons when reading docs
+  * stubby: completely ephemeral user account
+  * add libgetdns-dev.doc-base
+  * add hardening flags
+  * fix upstream typo
+  * added autopkgtest burn-in test for stubby
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Thu, 01 Feb 2018 06:08:08 -0500
+
+getdns (1.2.1-3) unstable; urgency=medium
+
+  * wrap-and-sort -ast
+  * d/control: Maintainer to getdns@packages.debian.org
+  * Standards-Version: bump to 4.1.3 (Priority → optional)
+  * move to debhelper 11
+  * d/control: move Vcs-* to salsa.debian.org
+  * d/copyright: Format: use https
+  * d/copyright: Source: use https
+  * drop unnecessary build-deps due to debhelper 11
+  * clean up d/copyright
+  * d/rules: include pkg-info.mk, drop dpkg-parsechangelog
+  * d/rules: use dh_missing explicitly
+  * add Documentation= to stubby.service
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Thu, 01 Feb 2018 04:19:03 -0500
+
+getdns (1.2.1-2) unstable; urgency=medium
+
+  [ Santiago ]
+  * Update d/copyright with missing information (Closes: #861445)
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 13 Nov 2017 21:18:16 +0000
+
+getdns (1.2.1-1) unstable; urgency=medium
+
+  * New upstream version.
+  * Update d/watch to ignore dash in front of rc
+  * Enable stubby again
+  * Add missing build-depends (libyaml-dev and doxygen)
+  * Split stubby into a separate package and have a simple service file to
+    run it by default
+  * Add new symbols from libgetdns.so.6 library
+  * Override missing init.d script (feel free to provide one though)
+
+ -- Ondřej Surý <ondrej@debian.org>  Sun, 12 Nov 2017 02:56:52 +0000
+
+getdns (1.1.0-2) unstable; urgency=medium
+
+  * Add d/README.source to help with importing sources from the upstream
+    git repository
+  * Upload to unstable.
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 19 Jun 2017 11:31:41 +0200
+
+getdns (1.1.0-1) experimental; urgency=medium
+
+  * New upstream version
+   - to experimental to avoid hurting the freeze
+   - dropped debian/patches, all integrated upstream
+   - moved from libgetdns1 to libgetdns6
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Fri, 28 Apr 2017 07:37:34 -0700
+
+getdns (1.1.0~a2-2) unstable; urgency=medium
+
+  * Use upstream provided src/jsmn/ (Closes: #849577)
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 08 Mar 2017 11:48:09 +0100
+
+getdns (1.1.0~a2-1) unstable; urgency=medium
+
+  * Fix CURRENT_DATE generation for reproducible builds (Closes: #797215)
+  * Imported Upstream version 1.1.0~a2
+   + OpenSSL 1.1 support (Closes: #828309)
+  * Run automake -a before running dh_autoreconf
+  * Add src/jsmn/ to sources
+  * Fix OpenSSL 1.1.0 compatibility defines
+  * Add getdns-utils package with utilities
+  * Update libgetdns1 symbols file
+
+ -- Ondřej Surý <ondrej@debian.org>  Sun, 06 Nov 2016 21:56:21 +0100
+
+getdns (1.0.0~b2-1) unstable; urgency=medium
+
+  * New uptream version
+  * Bump standards-version to 3.9.8 (no changes needed)
+  * update debian/watch to detect alpha and beta versions
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Fri, 15 Jul 2016 17:22:30 +0200
+
+getdns (0.9.0-1) unstable; urgency=medium
+
+  [ Daniel Kahn Gillmor ]
+  * updated Homepage and Vcs-* URLs to use https
+  * canonicalize with wrap-and-sort
+
+  [ Ondřej Surý ]
+  * Imported Upstream version 0.9.0
+  * Install upstream pkgconfig getdns.pc
+  * Add new symbols to libgetdns1.symbols
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 04 Jan 2016 12:52:03 +0100
+
+getdns (0.5.1-2) unstable; urgency=medium
+
+  * Move getdns under pkg-dns team umbrella packaging
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 04 Dec 2015 15:03:23 +0100
+
+getdns (0.5.1-1) unstable; urgency=medium
+
+  * new upstream release.
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Wed, 18 Nov 2015 15:15:50 -0500
+
+getdns (0.5.1~rc1-1) experimental; urgency=medium
+
+  * new upstream release candidate
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Thu, 12 Nov 2015 16:21:02 -0500
+
+getdns (0.5.0-3) unstable; urgency=medium
+
+  * switch from libuv0.10 to libuv1
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Thu, 05 Nov 2015 07:02:16 +0900
+
+getdns (0.5.0-2) unstable; urgency=medium
+
+  * move to unstable.
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Fri, 30 Oct 2015 21:21:32 +0900
+
+getdns (0.5.0-1) experimental; urgency=medium
+
+  * new upstream release.
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Fri, 30 Oct 2015 20:18:58 +0900
+
+getdns (0.5.0~rc1-1) experimental; urgency=medium
+
+  * new upstream release candidate
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Fri, 30 Oct 2015 15:15:07 +0900
+
+getdns (0.3.3-1) unstable; urgency=medium
+
+  * New upstream release
+  * remove d/patches/*, applied upstream
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Thu, 10 Sep 2015 07:44:22 -0400
+
+getdns (0.3.1-1) unstable; urgency=medium
+
+  * new upstream bugfix release.
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Sat, 18 Jul 2015 18:28:27 +0200
+
+getdns (0.3.0-1) unstable; urgency=medium
+
+  * new upstream release
+  * move to unstable
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Sat, 18 Jul 2015 00:58:51 +0200
+
+getdns (0.3.0~rc1-1) experimental; urgency=medium
+
+  * new upstream version.
+  * update the API "string version" to match the new spec
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Sun, 12 Jul 2015 23:05:35 -0400
+
+getdns (0.2.0-2) unstable; urgency=medium
+
+  * make the compilation comment independent of the TZ
+  * stabilize the "date" in the man pages to match the API "string
+    version"
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Wed, 08 Jul 2015 13:53:27 -0400
+
+getdns (0.2.0-1) unstable; urgency=medium
+
+  * New upstream release.
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Thu, 21 May 2015 10:00:09 -0400
+
+getdns (0.2.0~rc1-1) experimental; urgency=medium
+
+  * new upstream release candidate.
+  * added myself to uploaders
+  * Bumped Standards-Version to 3.9.6 (no changes needed)
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Thu, 14 May 2015 09:00:01 -0400
+
+getdns (0.1.8-1) unstable; urgency=medium
+
+  * New upstream version 0.1.8
+  * Update libversion patch to 0.1.8
+  * Check library symbols with -c4
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 30 Apr 2015 11:33:49 +0200
+
+getdns (0.1.7-1.1) unstable; urgency=medium
+
+  * Non-maintainer Upload
+  * Fix libversion numbering (Closes: #782799)
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>  Wed, 29 Apr 2015 20:46:35 -0400
+
+getdns (0.1.7-1) unstable; urgency=medium
+
+  * New upstream version 0.1.7
+  * Remove all patches - they have been merged upstream
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 09 Apr 2015 10:13:22 +0200
+
+getdns (0.1.6-4) unstable; urgency=medium
+
+  * iputils-ping is no longer needed as part of #778939 fix and it's also
+    not installable on non-Linux architectures, so we just get rid of it
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 24 Mar 2015 14:13:04 +0100
+
+getdns (0.1.6-3) unstable; urgency=medium
+
+  * Switch to gbp pq patch management
+  * Add Scott Kitterman to uploaders
+  * Run the tests every time, but don't fail when tests fail (Closes: #778939)
+
+ -- Ondřej Surý <ondrej@debian.org>  Tue, 24 Mar 2015 13:16:27 +0100
+
+getdns (0.1.6-2) unstable; urgency=medium
+
+  * Fix version number in Breaks+Replaces (Closes: #779111)
+  * Update copyright years and add license for strlcpy.c
+
+ -- Ondřej Surý <ondrej@debian.org>  Wed, 25 Feb 2015 10:52:16 +0100
+
+getdns (0.1.6-1) unstable; urgency=medium
+
+  * New upstream version 0.1.6
+  * Add --with-current-date to allow reproducible builds and set the value
+    to changelog last entry Date (Closes: #775696)
+  * Add missing upstream autoconf macro
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 19 Jan 2015 09:36:28 +0100
+
+getdns (0.1.5-2) unstable; urgency=medium
+
+  * SONAME was bumped, rename libgetdns0 to libgetdns1
+  * Add Conflicts/Replaces for faulty libgetdns0
+
+ -- Ondřej Surý <ondrej@debian.org>  Mon, 03 Nov 2014 11:12:47 +0100
+
+getdns (0.1.5-1) unstable; urgency=medium
+
+  * New upstream version 0.1.5
+  * Build-Depends on libev-dev, libuv-dev and libevent-dev
+  * Beautify d/control with wrap-and-sort -a
+  * Add symbols file for libraries
+
+ -- Ondřej Surý <ondrej@debian.org>  Sun, 02 Nov 2014 13:29:12 +0100
+
+getdns (0.1.4-1) unstable; urgency=medium
+
+  * Fix Vcs-URLs to point to anonscm.debian.org
+  * New upstream version 0.1.4
+
+ -- Ondřej Surý <ondrej@debian.org>  Thu, 04 Sep 2014 11:31:13 +0200
+
+getdns (0.1.3-1) unstable; urgency=medium
+
+  * Initial release (Closes: #741011)
+
+ -- Ondřej Surý <ondrej@debian.org>  Fri, 13 Jun 2014 13:48:19 +0200

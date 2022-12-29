@@ -1,0 +1,29 @@
+From: Roger Shimizu <rosh@debian.org>
+Date: Wed, 27 May 2020 18:37:35 +0900
+Subject: Fix stubby.yml install path for debian
+
+---
+ stubby/CMakeLists.txt | 10 +---------
+ 1 file changed, 1 insertion(+), 9 deletions(-)
+
+diff --git a/stubby/CMakeLists.txt b/stubby/CMakeLists.txt
+index 4ba36ed..3f916dc 100644
+--- a/stubby/CMakeLists.txt
++++ b/stubby/CMakeLists.txt
+@@ -115,15 +115,7 @@ install(FILES AUTHORS COPYING ChangeLog NEWS README.md DESTINATION share/doc/stu
+ 
+ # Ensure the file gets CRLF line endings on Windows.
+ file(GENERATE OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/stubby.yml INPUT ${CMAKE_CURRENT_SOURCE_DIR}/stubby.yml.example)
+-# Copy to destination iff no destination file exists.
+-install(CODE "\
+-  set(targetdir ${STUBBYCONFDIR})\n\
+-  if (\$ENV{DESTDIR})\n\
+-    set(targetdir \$ENV{DESTDIR}/\${targetdir})\n\
+-  endif ()\n\
+-  if (NOT EXISTS \${targetdir}/stubby.yml)\n\
+-    file(COPY ${CMAKE_CURRENT_BINARY_DIR}/stubby.yml DESTINATION \${targetdir})\n\
+-  endif ()")
++install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/stubby.yml.example DESTINATION /etc/stubby RENAME stubby.yml)
+ 
+ if (APPLE)
+   find_library(security Security REQUIRED)

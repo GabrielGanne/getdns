@@ -1,0 +1,59 @@
+#!/bin/bash
+
+# verify we have an internet connection before testing, by TLS querying
+# one of the default upstream servers in our /etc/stubby/stubby.yml
+UPSTREAM=$(grep -m1 -E '^[^#].*address_data: *([0-9]+\.){3}[0-9]+' /etc/stubby/stubby.yml | cut -d ':' -f 2)
+if [[ -z $UPSTREAM ]]; then
+    echo "no upstream nameserver found in /etc/stubby/stubby.yml"
+    exit 77
+fi
+NET_TEST=$(kdig +short +tls @${UPSTREAM## } getdnsapi.net)
+if [[ $NET_TEST != 185.49.141.37 ]]; then
+    # Couldn't reach upstream nameserver, skip the test
+    exit 77
+fi
+
+set -e
+
+getpid() {
+PID=$(ps x|grep stubby.yml|grep -v grep|awk '{print $1}')
+}
+
+test_stubby() {
+port=$1
+# a simple smoke test just make sure that at least one query can go through:
+time for i in {0..9}; do
+  if diff -u <(kdig +short @localhost:$port getdnsapi.net) <(echo 185.49.141.37); then
+    printf .
+  else
+    printf !
+    error=$((error+1))
+  fi
+  counter=$((counter+1))
+done
+}
+
+error=0
+counter=0
+getpid
+stubby -C $(dirname $0)/stubby.yml &
+[ -n "$PID" ] && kill $PID
+
+# ==== test round 0 ====
+echo Test stubby started by systemd service
+test_stubby 53
+getpid
+echo $error "time(s) error out of $counter times run."
+
+echo
+# ==== test round 1 ====
+echo Test stubby started by ourselves
+echo PID of stubby: $PID
+test_stubby 5533
+[ -n "$PID" ] && kill $PID
+sleep 1
+echo $error "time(s) error out of $counter times run."
+
+# ==== test result ====
+[ $error -le $((counter/2)) ] && error=0
+exit $error

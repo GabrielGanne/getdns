@@ -1,0 +1,4 @@
+0001-avoid-phoning-home-to-creativecommons.org-when-readi.patch
+0002-fix-typo.patch
+0003-Fix-install-path-for-cmake-build-since-we-use-GNUIns.patch
+0004-Fix-stubby.yml-install-path-for-debian.patch

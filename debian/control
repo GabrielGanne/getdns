@@ -1,0 +1,110 @@
+Source: getdns
+Priority: optional
+Maintainer: getdns packagers <getdns@packages.debian.org>
+Uploaders:
+ Ondřej Surý <ondrej@debian.org>,
+ Scott Kitterman <scott@kitterman.com>,
+ Daniel Kahn Gillmor <dkg@fifthhorseman.net>,
+Build-Depends:
+ check,
+ cmake,
+ debhelper (>= 11~),
+ libbsd-dev,
+ libev-dev,
+ libevent-dev,
+ libexpat-dev,
+ libidn2-dev,
+ libldns-dev,
+ libunbound-dev,
+ libuv1-dev,
+ libyaml-dev,
+ unbound-anchor,
+Standards-Version: 4.3.0
+Rules-Requires-Root: no
+Section: libs
+Homepage: https://getdnsapi.net/
+Vcs-Git: https://salsa.debian.org/dns-team/getdns.git
+Vcs-Browser: https://salsa.debian.org/dns-team/getdns
+
+Package: libgetdns-dev
+Section: libdevel
+Architecture: any
+Multi-Arch: same
+Depends:
+ libgetdns10 (= ${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Description: modern asynchronous DNS API (development)
+ getdns is a modern asynchronous DNS API.  It implements DNS entry
+ points from a design developed and vetted by application developers,
+ in an API specification edited by Paul Hoffman.  This API intends to
+ offer application developers a modernized and flexible way to access
+ DNS security (DNSSEC) and other powerful new DNS features; a
+ particular hope is to inspire application developers towards
+ innovative security solutions in their applications.
+ .
+ This is the full development version of the library.
+
+Package: libgetdns10
+Multi-Arch: same
+Architecture: any
+Depends:
+ dns-root-data,
+ ${misc:Depends},
+ ${shlibs:Depends},
+Breaks:
+ libgetdns0 (>= 0.1.5-1~),
+Replaces:
+ libgetdns0 (>= 0.1.5-1~),
+Description: modern asynchronous DNS API (shared library)
+ getdns is a modern asynchronous DNS API.  It implements DNS entry
+ points from a design developed and vetted by application developers,
+ in an API specification edited by Paul Hoffman.  This API intends to
+ offer application developers a modernized and flexible way to access
+ DNS security (DNSSEC) and other powerful new DNS features; a
+ particular hope is to inspire application developers towards
+ innovative security solutions in their applications.
+ .
+ This is the runtime package of the library.
+
+Package: getdns-utils
+Architecture: any
+Section: net
+Depends:
+ libgetdns10 (= ${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Recommends:
+ stubby,
+Description: modern asynchronous DNS API (utils)
+ getdns is a modern asynchronous DNS API.  It implements DNS entry
+ points from a design developed and vetted by application developers,
+ in an API specification edited by Paul Hoffman.  This API intends to
+ offer application developers a modernized and flexible way to access
+ DNS security (DNSSEC) and other powerful new DNS features; a
+ particular hope is to inspire application developers towards
+ innovative security solutions in their applications.
+ .
+ This package contains getdns-query utility.
+
+Package: stubby
+Architecture: any
+Section: net
+Depends:
+ libgetdns10 (= ${binary:Version}),
+ ${misc:Depends},
+ ${shlibs:Depends},
+Breaks:
+ getdns-utils (<< 1.2.1-1~),
+Replaces:
+ getdns-utils (<< 1.2.1-1~),
+Description: modern asynchronous DNS API (stub resolver)
+ getdns is a modern asynchronous DNS API.  It implements DNS entry
+ points from a design developed and vetted by application developers,
+ in an API specification edited by Paul Hoffman.  This API intends to
+ offer application developers a modernized and flexible way to access
+ DNS security (DNSSEC) and other powerful new DNS features; a
+ particular hope is to inspire application developers towards
+ innovative security solutions in their applications.
+ .
+ This package contains stubby daemon - the DNS Privacy Stub Resolver.

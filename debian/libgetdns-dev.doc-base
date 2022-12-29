@@ -1,0 +1,9 @@
+Document: getdns
+Title: getdns
+Abstract: Description of the getdns API
+ getdns is a modern asynchronous DNS API in C.
+Section: Programming/C
+
+Format: html
+Index: /usr/share/doc/libgetdns-dev/index.html
+Files: /usr/share/doc/libgetdns-dev/index.html

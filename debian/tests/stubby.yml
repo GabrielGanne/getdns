@@ -1,0 +1,88 @@
+resolution_type: GETDNS_RESOLUTION_STUB
+dns_transport_list:
+  - GETDNS_TRANSPORT_TLS
+tls_authentication: GETDNS_AUTHENTICATION_REQUIRED
+tls_query_padding_blocksize: 128
+edns_client_subnet_private : 1
+round_robin_upstreams: 1
+idle_timeout: 10000
+tls_backoff_time: 500
+listen_addresses:
+  - 127.0.0.1@5533
+  - 0::1@5533
+upstream_recursive_servers:
+## Google
+  - address_data: 8.8.8.8
+    tls_auth_name: "dns.google"
+  - address_data: 8.8.4.4
+    tls_auth_name: "dns.google"
+  - address_data: 2001:4860:4860::8888
+    tls_auth_name: "dns.google"
+  - address_data: 2001:4860:4860::8844
+    tls_auth_name: "dns.google"
+####### Servers that listen on port 443 (IPv4 and IPv6) #######
+## Surfnet/Sinodun servers
+  - address_data: 145.100.185.15
+    tls_port: 443
+    tls_auth_name: "dnsovertls.sinodun.com"
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: 62lKu9HsDVbyiPenApnc4sfmSYTHOVfFgL3pyB+cBL4=
+  - address_data: 145.100.185.16
+    tls_port: 443
+    tls_auth_name: "dnsovertls1.sinodun.com"
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: cE2ecALeE5B+urJhDrJlVFmf38cJLAvqekONvjvpqUA=
+## dns.cmrg.net server using Knot resolver
+  - address_data: 199.58.81.218
+    tls_port: 443
+    tls_auth_name: "dns.cmrg.net"
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: 3IOHSS48KOc/zlkKGtI46a9TY9PPKDVGhE3W2ZS4JZo=
+      - digest: "sha256"
+        value: 5zFN3smRPuHIlM/8L+hANt99LW26T97RFHqHv90awjo=
+## dns.neutopia.org
+  - address_data: 89.234.186.112
+    tls_port: 443
+    tls_auth_name: "dns.neutopia.org"
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: wTeXHM8aczvhRSi0cv2qOXkXInoDU+2C+M8MpRyT3OI=
+## The Surfnet/Sinodun servers
+  - address_data: 2001:610:1:40ba:145:100:185:15
+    tls_port: 443
+    tls_auth_name: "dnsovertls.sinodun.com"
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: 62lKu9HsDVbyiPenApnc4sfmSYTHOVfFgL3pyB+cBL4=
+  - address_data: 2001:610:1:40ba:145:100:185:16
+    tls_port: 443
+    tls_auth_name: "dnsovertls1.sinodun.com"
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: cE2ecALeE5B+urJhDrJlVFmf38cJLAvqekONvjvpqUA=
+## dns.cmrg.net server using Knot resolver
+  - address_data: 2001:470:1c:76d::53
+    tls_port: 443
+    tls_auth_name: "dns.cmrg.net"
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: 3IOHSS48KOc/zlkKGtI46a9TY9PPKDVGhE3W2ZS4JZo=
+      - digest: "sha256"
+        value: 5zFN3smRPuHIlM/8L+hANt99LW26T97RFHqHv90awjo=
+## dns.neutopia.org
+  - address_data: 2a00:5884:8209::2
+    tls_port: 443
+    tls_auth_name: "dns.neutopia.org"
+    tls_pubkey_pinset:
+      - digest: "sha256"
+        value: wTeXHM8aczvhRSi0cv2qOXkXInoDU+2C+M8MpRyT3OI=
+## Foundation for Applied Privacy
+  - address_data: 93.177.65.183
+    tls_port: 443
+    tls_auth_name: "dot1.applied-privacy.net"
+  - address_data: 2a03:4000:38:53c::2
+    tls_port: 443
+    tls_auth_name: "dot1.applied-privacy.net"

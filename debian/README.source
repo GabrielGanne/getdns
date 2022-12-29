@@ -1,0 +1,35 @@
+The Debian packaging for getdns is kept in in git at
+https://salsa.debian.org/dns-team/getdns.
+
+In accordance with [DEP-14], the version in unstable is on the
+'debian/master' branch, with the corresponding upstream version in the
+'upstream' branch (with pristine-tar information in the pristine-tar
+branch).
+
+    [DEP-14] http://dep.debian.net/deps/dep14/
+
+In addition to the "debian/master" branch, you should ensure that you
+have local "pristine-tar" and "upstream" branches tracking the same
+names from salsa.
+
+When that is set up, it should be possible to build the package from
+the debian/master by just running:
+
+    gbp buildpackage
+
+Merging upstream releases
+=========================
+
+You should ensure that you have upstream's git repository available in
+addition to the debian packaging repository.  This lets you find the
+upstream release tags.  You can ensure you have it set up with:
+
+    git remote add upstream https://github.com/getdnsapi/getdns.git
+
+Importing a new upstream version can be done from the debian/master
+branch like so:
+
+    git remote update upstream
+    gbp import-orig --uscan
+
+ -- Daniel Kahn Gillmor <dkg@fifthhorseman.net>, Fri, 23 Feb 2018 11:47:37 -0800

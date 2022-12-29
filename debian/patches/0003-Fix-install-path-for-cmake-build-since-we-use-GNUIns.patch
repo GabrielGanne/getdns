@@ -1,0 +1,105 @@
+From: Roger Shimizu <rosh@debian.org>
+Date: Wed, 27 May 2020 00:30:33 +0900
+Subject: Fix install path for cmake build since we use GNUInstallDirs
+
+So we use install path below since cmake v3.0 [1]:
+ - CMAKE_INSTALL_LIBDIR
+ - CMAKE_INSTALL_INCLUDEDIR
+
+[1] https://cmake.org/cmake/help/v3.0/module/GNUInstallDirs.html
+---
+ CMakeLists.txt         | 20 ++++++++++----------
+ getdns.pc.in           |  6 +++---
+ getdns_ext_event.pc.in |  6 +++---
+ 3 files changed, 16 insertions(+), 16 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 7d22d3c..4eb2eb6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1043,27 +1043,27 @@ configure_file(getdns.pc.in getdns.pc @ONLY)
+ 
+ # Installing.
+ if (ENABLE_STATIC)
+-  install(TARGETS getdns LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
++  install(TARGETS getdns LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+   if (USE_LIBEV)
+-    install(TARGETS getdns_ex_ev LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
++    install(TARGETS getdns_ex_ev LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+   endif ()
+   if (USE_LIBEVENT2)
+-    install(TARGETS getdns_ex_event LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
++    install(TARGETS getdns_ex_event LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+   endif ()
+   if (USE_LIBUV)
+-    install(TARGETS getdns_ex_uv LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
++    install(TARGETS getdns_ex_uv LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+   endif ()
+ endif ()
+ if (ENABLE_SHARED)
+-  install(TARGETS getdns_shared LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
++  install(TARGETS getdns_shared LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+   if (USE_LIBEV)
+-    install(TARGETS getdns_ex_ev_shared LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
++    install(TARGETS getdns_ex_ev_shared LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+   endif ()
+   if (USE_LIBEVENT2)
+-    install(TARGETS getdns_ex_event_shared LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
++    install(TARGETS getdns_ex_event_shared LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+   endif ()
+   if (USE_LIBUV)
+-    install(TARGETS getdns_ex_uv_shared LIBRARY DESTINATION lib ARCHIVE DESTINATION lib)
++    install(TARGETS getdns_ex_uv_shared LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+   endif ()
+ endif ()
+ if (BUILD_GETDNS_QUERY)
+@@ -1073,13 +1073,13 @@ if (BUILD_GETDNS_SERVER_MON)
+   install(TARGETS getdns_server_mon RUNTIME DESTINATION bin)
+ endif ()
+ 
+-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/getdns DESTINATION include)
++install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/getdns DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+ install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/man3 DESTINATION share/man)
+ 
+ set(docdir share/doc/getdns)
+ install(FILES AUTHORS ChangeLog COPYING LICENSE NEWS README.md DESTINATION ${docdir})
+ install(FILES spec/index.html DESTINATION ${docdir}/spec)
+-install(FILES ${CMAKE_CURRENT_BINARY_DIR}/getdns.pc DESTINATION lib/pkgconfig)
++install(FILES ${CMAKE_CURRENT_BINARY_DIR}/getdns.pc DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig)
+ 
+ install(CODE "message(\"\
+ ***\n\
+diff --git a/getdns.pc.in b/getdns.pc.in
+index 604f800..a2a3ca9 100644
+--- a/getdns.pc.in
++++ b/getdns.pc.in
+@@ -1,9 +1,9 @@
+ prefix=@prefix@
+ exec_prefix=${prefix}
+-libdir=${exec_prefix}/lib
+-includedir=${prefix}/include
++libdir=${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
++includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+ 
+-Name: getdns 
++Name: getdns
+ Version: @GETDNS_VERSION@
+ Description: A modern asynchronous DNS library
+ 
+diff --git a/getdns_ext_event.pc.in b/getdns_ext_event.pc.in
+index fec7946..8c547aa 100644
+--- a/getdns_ext_event.pc.in
++++ b/getdns_ext_event.pc.in
+@@ -1,9 +1,9 @@
+ prefix=@prefix@
+ exec_prefix=${prefix}
+-libdir=${exec_prefix}/lib
+-includedir=${prefix}/include
++libdir=${exec_prefix}/@CMAKE_INSTALL_LIBDIR@
++includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+ 
+-Name: getdns_ext_event 
++Name: getdns_ext_event
+ Version: @GETDNS_VERSION@
+ Description: A modern asynchronous DNS library
+ 
