@@ -1,0 +1,25 @@
+From 6507e4c4693bbb47dc4060ce2f4b76d7671e0d1d Mon Sep 17 00:00:00 2001
+From: Jan Vcelak <jv@fcelda.cz>
+Date: Fri, 18 Sep 2020 13:56:53 +0200
+Subject: [PATCH] build: fix exporting symbols for extension libraries
+
+---
+ cmake/modules/TargetSharedLibraryExports.cmake | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/cmake/modules/TargetSharedLibraryExports.cmake b/cmake/modules/TargetSharedLibraryExports.cmake
+index ab3f960e..b9f3ac27 100644
+--- a/cmake/modules/TargetSharedLibraryExports.cmake
++++ b/cmake/modules/TargetSharedLibraryExports.cmake
+@@ -20,7 +20,7 @@ function(target_shared_library_exports lib libname symbols)
+       file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/${libname}.ver" "  ${symbol};\n")
+     endforeach ()
+     file(APPEND "${CMAKE_CURRENT_BINARY_DIR}/${libname}.ver" "local:\n  *;\n};\n")
+-    target_link_libraries(${lib} PRIVATE "-Wl,--version-script=getdns.ver")
++    target_link_libraries(${lib} PRIVATE "-Wl,--version-script=${libname}.ver")
+   else ()
+     message(WARNING "Unknown platform, ${lib} exports not set.")
+   endif ()
+-- 
+2.30.2
+

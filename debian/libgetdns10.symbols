@@ -191,5 +191,8 @@ libgetdns.so.10 libgetdns10 #MINVER#
  plain_mem_funcs_user_arg@Base 1.4.0
  priv_getdns_context_mf@Base 1.4.0
 libgetdns_ex_ev.so.10 libgetdns10 #MINVER#
+ getdns_extension_set_libev_loop@Base 1.4.0
 libgetdns_ex_event.so.10 libgetdns10 #MINVER#
+ getdns_extension_set_libevent_base@Base 1.4.0
 libgetdns_ex_uv.so.10 libgetdns10 #MINVER#
+ getdns_extension_set_libuv_loop@Base 1.6.0
